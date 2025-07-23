@@ -34,7 +34,7 @@ const PLANET_MODELS = {
  */
 export function getPlanetPosition(planet: PlanetName, date: Date): PlanetPosition {
   // Convert date to Julian Day
-  const jd = julian.DateTimeToJD(date)
+  const jd = julian.DateToJD(date)
   
   let longitudeRadians: number
   
