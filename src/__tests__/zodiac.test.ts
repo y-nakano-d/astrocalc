@@ -32,8 +32,8 @@ describe('getZodiacFromLongitude', () => {
   })
 
   test('should handle negative longitudes', () => {
-    const result = getZodiacFromLongitude(-30) // Should wrap to 330° = Capricorn 0°
-    expect(result.sign).toBe('Capricorn')
+    const result = getZodiacFromLongitude(-30) // Should wrap to 330° = Pisces 0°
+    expect(result.sign).toBe('Pisces')
     expect(result.degreeInSign).toBe(0)
   })
 
