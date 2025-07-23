@@ -9,6 +9,8 @@
     "build": "tsc",
     "test": "jest",
     "dev": "tsc --watch",
+    "lint": "tsc --noEmit --skipLibCheck",
+    "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run build"
   },
   "keywords": [
@@ -21,7 +23,7 @@
   "author": "y-nakano-d",
   "license": "MIT",
   "dependencies": {
-    "astronomia": "^3.2.0"
+    "astronomia": "^4.1.0"
   },
   "devDependencies": {
     "@types/jest": "^29.5.0",
