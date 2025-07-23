@@ -1,17 +1,19 @@
-import * as julian from 'astronomia/julian'
-import * as planetposition from 'astronomia/planetposition'
-import * as vsop87Bmercury from 'astronomia/vsop87Bmercury'
-import * as vsop87Bvenus from 'astronomia/vsop87Bvenus'
-import * as vsop87Bearth from 'astronomia/vsop87Bearth'
-import * as vsop87Bmars from 'astronomia/vsop87Bmars'
-import * as vsop87Bjupiter from 'astronomia/vsop87Bjupiter'
-import * as vsop87Bsaturn from 'astronomia/vsop87Bsaturn'
-import * as vsop87Buranus from 'astronomia/vsop87Buranus'
-import * as vsop87Bneptune from 'astronomia/vsop87Bneptune'
-import * as solarsystem from 'astronomia/solarsystem'
-import * as moonposition from 'astronomia/moonposition'
+import { 
+  julian, 
+  planetposition, 
+  pluto, 
+  moonposition 
+} from 'astronomia'
+import vsop87Bmercury from 'astronomia/data/vsop87Bmercury'
+import vsop87Bvenus from 'astronomia/data/vsop87Bvenus'
+import vsop87Bearth from 'astronomia/data/vsop87Bearth'
+import vsop87Bmars from 'astronomia/data/vsop87Bmars'
+import vsop87Bjupiter from 'astronomia/data/vsop87Bjupiter'
+import vsop87Bsaturn from 'astronomia/data/vsop87Bsaturn'
+import vsop87Buranus from 'astronomia/data/vsop87Buranus'
+import vsop87Bneptune from 'astronomia/data/vsop87Bneptune'
 import { PlanetName, PlanetPosition } from '../types/astro.js'
-import { getZodiacFromLongitude } from '../zodiac/getZodiacFromLongitude.js'
+import { getZodiacFromLongitude } from '../zodiac/getZodiacFromLongitude'
 
 // VSOP87 planet models
 const PLANET_MODELS = {
@@ -32,7 +34,7 @@ const PLANET_MODELS = {
  */
 export function getPlanetPosition(planet: PlanetName, date: Date): PlanetPosition {
   // Convert date to Julian Day
-  const jd = julian.DateTimeToJD(date)
+  const jd = julian.DateToJD(date)
   
   let longitudeRadians: number
   
@@ -47,7 +49,7 @@ export function getPlanetPosition(planet: PlanetName, date: Date): PlanetPositio
     longitudeRadians = moonPos.lon
   } else if (planet === 'Pluto') {
     // Pluto uses a different calculation method
-    const plutoPos = solarsystem.plutoPosition(jd)
+    const plutoPos = pluto.position(jd)
     longitudeRadians = plutoPos.lon
   } else {
     // Regular planets using VSOP87
