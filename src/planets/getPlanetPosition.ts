@@ -49,7 +49,7 @@ export function getPlanetPosition(planet: PlanetName, date: Date): PlanetPositio
     longitudeRadians = moonPos.lon
   } else if (planet === 'Pluto') {
     // Pluto uses a different calculation method
-    const plutoPos = pluto.position(jd)
+    const plutoPos = pluto.geocentric(jd)
     longitudeRadians = plutoPos.lon
   } else {
     // Regular planets using VSOP87
