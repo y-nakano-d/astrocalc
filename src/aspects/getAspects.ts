@@ -1,4 +1,4 @@
-import { PlanetPosition, Aspect, AspectType } from '../types/astro.js'
+import { PlanetPosition, Aspect, AspectType } from '../types/astro'
 
 // Major aspects and their degrees
 const MAJOR_ASPECTS: { [key in AspectType]: number } = {
