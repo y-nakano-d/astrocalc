@@ -1,5 +1,6 @@
 // Export main functions
 export { getPlanetPosition } from './planets/getPlanetPosition.js'
+export { getAllPlanetPositions } from './planets/getAllPlanetPositions.js'
 export { getZodiacFromLongitude } from './zodiac/getZodiacFromLongitude.js'
 
 // Export types
