@@ -26,16 +26,30 @@ describe('getPlanetPosition', () => {
     expect(result.degreeInSign).toBeLessThan(30)
   })
 
-  test('should calculate Moon position for a specific date', () => {
+  test('should calculate Moon position for a specific date and match expected format', () => {
     const date = new Date('2025-07-15T00:00:00Z')
     const result = getPlanetPosition('Moon', date)
     
+    // Test the example usage from the issue
+    console.log('Moon position result:', result)
+    console.log('Formatted:', `{ planet: '${result.planet}', longitude: ${result.longitude.toFixed(1)}, sign: '${result.sign}', degreeInSign: ${result.degreeInSign.toFixed(1)} }`)
+    
+    // Verify all required properties exist and are correct types
     expect(result.planet).toBe('Moon')
+    expect(typeof result.longitude).toBe('number')
     expect(result.longitude).toBeGreaterThan(0)
     expect(result.longitude).toBeLessThan(360)
+    expect(typeof result.sign).toBe('string')
     expect(result.sign).toBeDefined()
+    expect(typeof result.degreeInSign).toBe('number')
     expect(result.degreeInSign).toBeGreaterThanOrEqual(0)
     expect(result.degreeInSign).toBeLessThan(30)
+    
+    // Verify the interface structure matches PlanetPosition
+    expect(result).toHaveProperty('planet')
+    expect(result).toHaveProperty('longitude')
+    expect(result).toHaveProperty('sign')
+    expect(result).toHaveProperty('degreeInSign')
   })
 
   test('should calculate Venus position for a specific date', () => {
