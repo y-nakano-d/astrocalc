@@ -1,4 +1,4 @@
-import { PlanetName, PlanetPosition } from '../types/astro';
+import { PlanetName, PlanetPosition } from '../types/astro.js';
 /**
  * Calculates the geocentric ecliptic longitude of a planet for a given date
  * @param planet Planet name

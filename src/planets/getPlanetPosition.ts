@@ -12,8 +12,8 @@ import vsop87Bjupiter from 'astronomia/data/vsop87Bjupiter'
 import vsop87Bsaturn from 'astronomia/data/vsop87Bsaturn'
 import vsop87Buranus from 'astronomia/data/vsop87Buranus'
 import vsop87Bneptune from 'astronomia/data/vsop87Bneptune'
-import { PlanetName, PlanetPosition } from '../types/astro'
-import { getZodiacFromLongitude } from '../zodiac/getZodiacFromLongitude'
+import { PlanetName, PlanetPosition } from '../types/astro.js'
+import { getZodiacFromLongitude } from '../zodiac/getZodiacFromLongitude.js'
 
 // VSOP87 planet models
 const PLANET_MODELS = {
