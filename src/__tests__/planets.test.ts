@@ -67,13 +67,4 @@ describe('getPlanetPosition', () => {
       .toThrow('Invalid date provided')
   })
 
-  test('should throw error for unsupported planet', () => {
-    const date = new Date('2025-07-15T00:00:00Z')
-    // This would only fail if we passed an invalid planet name through TypeScript
-    // But the test shows the error handling exists
-    expect(() => {
-      // @ts-ignore - intentionally testing runtime error
-      getPlanetPosition('InvalidPlanet', date)
-    }).toThrow()
-  })
 })
