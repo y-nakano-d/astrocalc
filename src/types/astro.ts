@@ -19,3 +19,12 @@ export interface PlanetPosition {
   sign: ZodiacSign
   degreeInSign: number
 }
+
+export type AspectType = 'Conjunction' | 'Sextile' | 'Square' | 'Trine' | 'Opposition'
+
+export interface Aspect {
+  planetA: PlanetName
+  planetB: PlanetName
+  aspect: AspectType
+  exact: number // actual angle difference
+}
