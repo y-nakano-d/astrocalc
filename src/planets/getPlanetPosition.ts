@@ -13,7 +13,7 @@ import vsop87Bsaturn from 'astronomia/data/vsop87Bsaturn'
 import vsop87Buranus from 'astronomia/data/vsop87Buranus'
 import vsop87Bneptune from 'astronomia/data/vsop87Bneptune'
 import { PlanetName, PlanetPosition } from '../types/astro'
-import { getZodiacFromLongitude } from '../zodiac/getZodiacFromLongitude'
+import { getZodiacFromLongitude } from '../zodiac/getZodiacFromLongitude.js'
 
 // VSOP87 planet models
 const PLANET_MODELS = {
@@ -83,9 +83,14 @@ export function getPlanetPosition(planet: PlanetName, date: Date): PlanetPositio
     longitudeRadians = position.lon
   }
   
-  // Convert radians to degrees
+  // Convert radians to degrees and normalize to 0-360° range
   const longitudeDegrees = (longitudeRadians * 180 / Math.PI) % 360
-  const normalizedLongitude = longitudeDegrees < 0 ? longitudeDegrees + 360 : longitudeDegrees
+  let normalizedLongitude = longitudeDegrees < 0 ? longitudeDegrees + 360 : longitudeDegrees
+  
+  // Handle edge case where result is exactly 360°
+  if (normalizedLongitude >= 360) {
+    normalizedLongitude = normalizedLongitude % 360
+  }
   
   // Get zodiac sign information
   const zodiacInfo = getZodiacFromLongitude(normalizedLongitude)

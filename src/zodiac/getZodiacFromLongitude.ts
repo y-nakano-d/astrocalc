@@ -13,14 +13,22 @@ const ZODIAC_SIGNS: ZodiacSign[] = [
  */
 export function getZodiacFromLongitude(longitude: number): ZodiacSignInfo {
   // Normalize longitude to 0-360 range
-  const normalizedLongitude = ((longitude % 360) + 360) % 360
+  let normalizedLongitude = ((longitude % 360) + 360) % 360
+  
+  // Handle the special case where longitude is exactly 360°
+  if (normalizedLongitude === 360) {
+    normalizedLongitude = 0
+  }
   
   // Each sign is 30 degrees
   const signIndex = Math.floor(normalizedLongitude / 30)
   const degreeInSign = normalizedLongitude % 30
   
+  // Ensure signIndex is within valid range (0-11)
+  const validSignIndex = Math.min(signIndex, 11)
+  
   return {
-    sign: ZODIAC_SIGNS[signIndex],
+    sign: ZODIAC_SIGNS[validSignIndex],
     degreeInSign: degreeInSign
   }
 }

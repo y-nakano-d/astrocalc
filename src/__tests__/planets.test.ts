@@ -36,6 +36,12 @@ describe('getPlanetPosition', () => {
     expect(result.sign).toBeDefined()
     expect(result.degreeInSign).toBeGreaterThanOrEqual(0)
     expect(result.degreeInSign).toBeLessThan(30)
+    
+    // Specific validation for the issue example date
+    // Expected result should be approximately in Pisces around 343-344°
+    expect(result.sign).toBe('Pisces')
+    expect(result.longitude).toBeCloseTo(343.7, 0) // Allow 1 degree tolerance
+    expect(result.degreeInSign).toBeCloseTo(13.7, 0) // Allow 1 degree tolerance
   })
 
   test('should calculate Venus position for a specific date', () => {
