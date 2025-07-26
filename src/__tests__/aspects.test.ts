@@ -137,9 +137,9 @@ describe('getAspects', () => {
       },
       {
         planet: 'Moon',
-        longitude: 8,
+        longitude: 6,
         sign: 'Aries',
-        degreeInSign: 8
+        degreeInSign: 6
       }
     ]
 
@@ -203,7 +203,7 @@ describe('getAspects', () => {
 
     const aspects = getAspects(planets)
     
-    expect(aspects).toHaveLength(3)
+    expect(aspects).toHaveLength(6)
     
     // Sun-Moon Conjunction
     const sunMoonAspect = aspects.find(a => 
@@ -228,6 +228,30 @@ describe('getAspects', () => {
     )
     expect(sunMarsAspect).toBeDefined()
     expect(sunMarsAspect!.aspect).toBe('Opposition')
+
+    // Moon-Venus Trine
+    const moonVenusAspect = aspects.find(a => 
+      (a.planetA === 'Moon' && a.planetB === 'Venus') || 
+      (a.planetA === 'Venus' && a.planetB === 'Moon')
+    )
+    expect(moonVenusAspect).toBeDefined()
+    expect(moonVenusAspect!.aspect).toBe('Trine')
+
+    // Moon-Mars Opposition
+    const moonMarsAspect = aspects.find(a => 
+      (a.planetA === 'Moon' && a.planetB === 'Mars') || 
+      (a.planetA === 'Mars' && a.planetB === 'Moon')
+    )
+    expect(moonMarsAspect).toBeDefined()
+    expect(moonMarsAspect!.aspect).toBe('Opposition')
+
+    // Venus-Mars Sextile
+    const venusMarsAspect = aspects.find(a => 
+      (a.planetA === 'Venus' && a.planetB === 'Mars') || 
+      (a.planetA === 'Mars' && a.planetB === 'Venus')
+    )
+    expect(venusMarsAspect).toBeDefined()
+    expect(venusMarsAspect!.aspect).toBe('Sextile')
   })
 
   test('should handle edge case with longitude crossing 0 degrees', () => {
