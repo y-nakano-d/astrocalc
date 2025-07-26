@@ -1,4 +1,5 @@
 import { getPlanetPosition } from '../planets/getPlanetPosition'
+import { PlanetName } from '../types/astro'
 
 describe('getPlanetPosition', () => {
   test('should calculate Mars position for a specific date', () => {
@@ -47,6 +48,23 @@ describe('getPlanetPosition', () => {
     expect(result.sign).toBeDefined()
     expect(result.degreeInSign).toBeGreaterThanOrEqual(0)
     expect(result.degreeInSign).toBeLessThan(30)
+  })
+
+  test('should calculate all planet positions', () => {
+    const planets: PlanetName[] = ['Mercury', 'Jupiter', 'Saturn', 'Uranus', 'Neptune', 'Pluto']
+    const date = new Date('2025-07-15T00:00:00Z')
+    
+    planets.forEach(planet => {
+      const result = getPlanetPosition(planet, date)
+      expect(result.planet).toBe(planet)
+      expect(result.longitude).toBeGreaterThanOrEqual(0)
+      expect(result.longitude).toBeLessThan(360)
+    })
+  })
+
+  test('should handle invalid dates gracefully', () => {
+    expect(() => getPlanetPosition('Mars', new Date('invalid')))
+      .toThrow('Invalid date provided')
   })
 
   test('should throw error for unsupported planet', () => {
