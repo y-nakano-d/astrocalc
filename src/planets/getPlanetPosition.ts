@@ -33,6 +33,11 @@ const PLANET_MODELS = {
  * @returns PlanetPosition with longitude, zodiac sign, and degree in sign
  */
 export function getPlanetPosition(planet: PlanetName, date: Date): PlanetPosition {
+  // Validate date
+  if (isNaN(date.getTime())) {
+    throw new Error('Invalid date provided')
+  }
+  
   // Convert date to Julian Day
   const jd = julian.DateToJD(date)
   
@@ -48,9 +53,24 @@ export function getPlanetPosition(planet: PlanetName, date: Date): PlanetPositio
     const moonPos = moonposition.position(jd)
     longitudeRadians = moonPos.lon
   } else if (planet === 'Pluto') {
-    // Pluto uses a different calculation method
-    const plutoPos = pluto.geocentric(jd)
-    longitudeRadians = plutoPos.lon
+    // Pluto uses heliocentric coordinates, convert to geocentric
+    const earth = new planetposition.Planet(vsop87Bearth)
+    const plutoPos = pluto.heliocentric(jd)
+    const earthPos = earth.position2000(jd)
+    
+    // Convert heliocentric to geocentric coordinates
+    // Using the same approach as other planets but with Pluto's heliocentric data
+    const [sB, cB] = [Math.sin(plutoPos.lat), Math.cos(plutoPos.lat)]
+    const [sL, cL] = [Math.sin(plutoPos.lon), Math.cos(plutoPos.lon)]
+    const [sB0, cB0] = [Math.sin(earthPos.lat), Math.cos(earthPos.lat)]
+    const [sL0, cL0] = [Math.sin(earthPos.lon), Math.cos(earthPos.lon)]
+    
+    // Geocentric rectangular coordinates
+    const x = plutoPos.range * cB * cL - earthPos.range * cB0 * cL0
+    const y = plutoPos.range * cB * sL - earthPos.range * cB0 * sL0
+    
+    // Calculate geocentric longitude
+    longitudeRadians = Math.atan2(y, x)
   } else {
     // Regular planets using VSOP87
     const planetModel = PLANET_MODELS[planet as keyof typeof PLANET_MODELS]
