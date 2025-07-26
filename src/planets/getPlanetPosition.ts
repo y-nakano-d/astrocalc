@@ -14,7 +14,7 @@ import vsop87Buranus from 'astronomia/data/vsop87Buranus'
 import vsop87Bneptune from 'astronomia/data/vsop87Bneptune'
 import { PlanetName, PlanetPosition } from '../types/astro.js'
 import { getZodiacFromLongitude } from '../zodiac/getZodiacFromLongitude'
-import { normalizeLongitude } from '../utils/astroUtils'
+import { normalizeLongitude, getCachedJulianDay } from '../utils/astroUtils'
 
 // VSOP87 planet models
 const PLANET_MODELS = {
@@ -34,8 +34,8 @@ const PLANET_MODELS = {
  * @returns PlanetPosition with longitude, zodiac sign, and degree in sign
  */
 export function getPlanetPosition(planet: PlanetName, date: Date): PlanetPosition {
-  // Convert date to Julian Day
-  const jd = julian.DateToJD(date)
+  // Convert date to Julian Day with caching
+  const jd = getCachedJulianDay(date, julian.DateToJD)
   
   let longitudeRadians: number
   
