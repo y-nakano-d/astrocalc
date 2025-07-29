@@ -19,3 +19,10 @@ export interface PlanetPosition {
   sign: ZodiacSign
   degreeInSign: number
 }
+
+export interface Aspect {
+  planetA: PlanetName
+  planetB: PlanetName
+  aspect: 'Conjunction' | 'Sextile' | 'Square' | 'Trine' | 'Opposition'
+  exact: number // actual angle difference
+}
